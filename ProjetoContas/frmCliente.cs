@@ -12,6 +12,7 @@ namespace ProjetoContas
 {
     public partial class frmCliente : Form
     {
+        public static int codigo;
         private void Habilita()
         {
             cd_clienteTextBox.Enabled = false;
@@ -124,6 +125,20 @@ namespace ProjetoContas
             {
                 tbClienteBindingSource.RemoveCurrent();
                 tbClienteTableAdapter.Update(contasDataSet.tbCliente);
+            }
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            int reg;
+            codigo = 0;
+            frmPesquisarCliente fpu = new frmPesquisarCliente();
+            fpu.ShowDialog();
+
+            if (codigo > 0)
+            {
+                reg = tbClienteBindingSource.Find("cd_cliente", codigo);
+                tbClienteBindingSource.Position = reg;
             }
         }
     }

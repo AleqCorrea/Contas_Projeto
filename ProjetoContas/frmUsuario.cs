@@ -12,7 +12,7 @@ namespace ProjetoContas
 {
     public partial class frmUsuario : Form
     {
-
+        public static int codigo;
         private void Habilita()
         {
             cd_usuarioTextBox.Enabled = false;
@@ -108,6 +108,20 @@ namespace ProjetoContas
             {
                 tbUsuarioBindingSource.RemoveCurrent();
                 tbUsuarioTableAdapter.Update(contasDataSet.tbUsuario);
+            }
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            int reg;
+            codigo = 0;
+            frnPesquisarUsuario fpu = new frnPesquisarUsuario();
+            fpu.ShowDialog();
+
+            if(codigo > 0)
+            {
+                reg = tbUsuarioBindingSource.Find("cd_usuario", codigo);
+                tbUsuarioBindingSource.Position = reg;
             }
         }
     }
