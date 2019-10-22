@@ -37,6 +37,7 @@
             System.Windows.Forms.Label dt_pagamentoLabel;
             System.Windows.Forms.Label vl_pagoLabel;
             System.Windows.Forms.Label ds_obsLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmContasReceber));
             this.btnSair = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
@@ -59,6 +60,8 @@
             this.dt_pagamentoDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.vl_pagoTextBox = new System.Windows.Forms.TextBox();
             this.ds_obsTextBox = new System.Windows.Forms.TextBox();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             cd_contaLabel = new System.Windows.Forms.Label();
             dt_emissaoLabel = new System.Windows.Forms.Label();
             dt_vencimentoLabel = new System.Windows.Forms.Label();
@@ -169,6 +172,7 @@
             this.btnImprimir.TabIndex = 40;
             this.btnImprimir.Text = "Imprimir";
             this.btnImprimir.UseVisualStyleBackColor = true;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // btnExcluir
             // 
@@ -188,6 +192,7 @@
             this.btnPesquisar.TabIndex = 38;
             this.btnPesquisar.Text = "Pesquisar";
             this.btnPesquisar.UseVisualStyleBackColor = true;
+            this.btnPesquisar.Click += new System.EventHandler(this.btnPesquisar_Click);
             // 
             // btnSalvar
             // 
@@ -339,6 +344,21 @@
             this.ds_obsTextBox.Size = new System.Drawing.Size(200, 20);
             this.ds_obsTextBox.TabIndex = 57;
             // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Document = this.printDocument1;
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
+            // 
             // frmContasReceber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -405,5 +425,7 @@
         private System.Windows.Forms.DateTimePicker dt_pagamentoDateTimePicker;
         private System.Windows.Forms.TextBox vl_pagoTextBox;
         private System.Windows.Forms.TextBox ds_obsTextBox;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
     }
 }

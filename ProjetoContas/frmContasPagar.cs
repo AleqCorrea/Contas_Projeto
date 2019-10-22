@@ -12,6 +12,8 @@ namespace ProjetoContas
 {
     public partial class frmContasPagar : Form
     {
+        public static int codigo;
+
         private void Habilita()
         {
             cd_contaTextBox.Enabled = false;
@@ -123,6 +125,43 @@ namespace ProjetoContas
             {
                 tbContasPagarBindingSource.RemoveCurrent();
                 tbContasPagarTableAdapter.Update(contasDataSet.tbContasPagar);
+            }
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            string strDados;
+
+            Graphics objImpressao = e.Graphics;
+            strDados = "FICHA DE USUÁRIO \n" + (char)10;
+            strDados = strDados + "Codigo:" + cd_contaTextBox.Text + (char)10;
+            strDados = strDados + "Data de Emissão:" + dt_emissaoDateTimePicker.Text + (char)10;
+            strDados = strDados + "Data de Vencimento:" + dt_vencimentoDateTimePicker.Text + (char)10;
+            strDados = strDados + "Valor da Conta:" + vl_contaTextBox.Text + (char)10;
+            strDados = strDados + "Fornecedor:" + id_fornecedorTextBox.Text + (char)10;
+            strDados = strDados + "Data do Pagamento:" + dt_pagamentoDateTimePicker.Text + (char)10;
+            strDados = strDados + "Valor do Pagamento: " + vl_pagoTextBox.Text + (char)10;
+            strDados = strDados + "Observaçoes: " + ds_obsTextBox.Text + (char)10;
+
+            objImpressao.DrawString(strDados, new System.Drawing.Font("Arial", 12, FontStyle.Bold), Brushes.Black, 50, 50);
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog1.ShowDialog();
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            int reg;
+            codigo = 0;
+            frmPesquisarPagar fpu = new frmPesquisarPagar();
+            fpu.ShowDialog();
+
+            if (codigo > 0)
+            {
+                reg = tbContasPagarBindingSource.Find("cd_conta", codigo);
+                tbContasPagarBindingSource.Position = reg;
             }
         }
     }

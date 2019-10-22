@@ -118,11 +118,34 @@ namespace ProjetoContas
             frnPesquisarUsuario fpu = new frnPesquisarUsuario();
             fpu.ShowDialog();
 
-            if(codigo > 0)
+            if (codigo > 0)
             {
                 reg = tbUsuarioBindingSource.Find("cd_usuario", codigo);
                 tbUsuarioBindingSource.Position = reg;
             }
+        }
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog1.ShowDialog();
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            string strDados;
+
+            Graphics objImpressao = e.Graphics;
+            strDados = "FICHA DE USUÁRIO \n" + (char)10;
+            strDados = strDados + "Codigo:" + cd_usuarioTextBox.Text + (char)10;
+            strDados = strDados + "Nome:" + nm_loginTextBox.Text + (char)10;
+            strDados = strDados + "Nivel:" + sg_nivelTextBox.Text + (char)10;
+            strDados = strDados + "Login:" + nm_loginTextBox.Text;
+            objImpressao.DrawString(strDados, new System.Drawing.Font("Arial", 12, FontStyle.Bold), Brushes.Black, 50, 50);
+
+        }
+
+        private void printPreviewDialog1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

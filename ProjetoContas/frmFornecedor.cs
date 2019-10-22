@@ -12,6 +12,7 @@ namespace ProjetoContas
 {
     public partial class frmFornecedor : Form
     {
+        public static int codigo;
         private void Habilita()
         {
             cd_fornecedorTextBox.Enabled = false;
@@ -124,6 +125,46 @@ namespace ProjetoContas
             {
                 tbFornecedorBindingSource.RemoveCurrent();
                 tbFornecedorTableAdapter.Update(contasDataSet.tbFornecedor);
+            }
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog1.ShowDialog();
+
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            string strDados;
+
+            Graphics objImpressao = e.Graphics;
+            strDados = "FICHA DE USUÁRIO \n" + (char)10;
+            strDados = strDados + "Codigo:" + cd_fornecedorTextBox.Text + (char)10;
+            strDados = strDados + "Nome:" + nm_fornecedorTextBox.Text + (char)10;
+            strDados = strDados + "Endereço:" + ds_enderecoTextBox.Text + (char)10;
+            strDados = strDados + "Cidade:" + nm_cidadeTextBox.Text + (char)10;
+            strDados = strDados + "Bairro:" + nm_cidadeTextBox.Text + (char)10;
+            strDados = strDados + "Estado:" + sg_estadoTextBox.Text + (char)10;
+            strDados = strDados + "CEP:" + cd_cepTextBox.Text + (char)10;
+            strDados = strDados + "Telefone:" + ds_telefoneTextBox.Text + (char)10;
+            strDados = strDados + "Email:" + ds_emailTextBox.Text + (char)10;
+
+
+            objImpressao.DrawString(strDados, new System.Drawing.Font("Arial", 12, FontStyle.Bold), Brushes.Black, 50, 50);
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            int reg;
+            codigo = 0;
+            frmPesquisarFornecedor fpu = new frmPesquisarFornecedor();
+            fpu.ShowDialog();
+
+            if (codigo > 0)
+            {
+                reg = tbFornecedorBindingSource.Find("cd_fornecedor", codigo);
+                tbFornecedorBindingSource.Position = reg;
             }
         }
     }
